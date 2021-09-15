@@ -1,0 +1,16 @@
+Source,kgCO2,sqmyear,Vegetarian,Vegan
+"Beef (beef herd)",50,164,False,False
+"Lamb & Mutton",20,185,False,False
+"Beef (dairy herd)",7,22,False,False
+"Crustaceans (farmed)",18,2,False,False
+"Cheese",11,41,True,False
+"Pig Meat",7.6,11,False,False
+"Fish (farmed)",6.0,3.7,False,False
+"Poultry Meat",5.7,7.1,False,False
+"Eggs",4.2,2.2,True,False
+"Tofu",2.0,2.2,True,True
+"Groundnuts",12,3.5,True,True
+"Other Pulses",0.8,7.3,True,True
+"Peas",0.5,3.4,True,True
+"Nuts",0.5,7.9,True,True
+"Grains",2.7,4.6,True,True
