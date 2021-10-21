@@ -1,4 +1,5 @@
 from DPIP.texasHoldem import cards
+from DPIP.texasHoldem import hand 
 import random as rd
 
 
@@ -52,7 +53,7 @@ class Game:
             
     def runEndGame(self):
         players = [x for x,y in zip(self.players,self.stillIn) if y]
-        result = findBestHands(self.communityCards,players)
+        result = hand.findBestHands(self.communityCards,players)
         # Remove bets
         idx = 0
         for player,bet in zip(self.players,self.curBets):
