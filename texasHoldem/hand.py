@@ -1,4 +1,5 @@
 import itertools as it
+from collections import Counter
 
 class Hand:
     def __init__(self,cards):
