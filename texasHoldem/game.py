@@ -10,6 +10,18 @@ class Game:
         self.Deck = cards.Deck()
         self.profit = {x.id_number:0 for x in players}
         self.__cleanup__()
+    def getProfitByPlayer(self):
+        id2player = {x.id_number:x for x in self.players}
+        return {id2player[x]:y for x,y in self.profit}
+        
+    def getProfitByName(self):
+        for x in self.players:
+            if hasattr(x,'name'):
+                id2name[x.id_number] = x.name 
+            else:
+                id2name[x.id_number] = x.id_number 
+        return {id2name[x]:y for x,y in self.profit}
+        
     def __cleanup__(self):
         self.communityCards = []
         self.curBets = [None for x in self.players]
