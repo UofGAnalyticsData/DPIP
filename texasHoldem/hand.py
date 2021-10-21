@@ -149,7 +149,7 @@ def findBestHands(community_cards,players):
         if len(player_cards) != 2: 
             print(f'Your player appears to have {len(player_cards)} cards, this is not the expected number, perhaps look at the reset implementation')
             raise WrongNumberOfCards
-        listOfCards = community_cards + 
+        listOfCards = community_cards + player_cards 
         temp1 = [Hand(item) for item in it.combinations(listOfCards,5)]
         count += len(temp1)
 
