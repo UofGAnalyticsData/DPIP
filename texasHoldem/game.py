@@ -68,6 +68,8 @@ class Game:
             else:
                 self.profit[player.id_number] -= self.curBets[idx]
             idx += 1
+        # run cleanup
+        self.__cleanup__()
             
     def runEndGame(self):
         players = [x for x,y in zip(self.players,self.stillIn) if y]
@@ -111,6 +113,7 @@ class Game:
         self.runBettingRound()
         if sum(1 for x in self.stillIn if x)==1:
             self.runEarlyEndGame()
+            return
         
         # First 3 cards
         self.Deck.burnCard()
