@@ -59,7 +59,7 @@ class Game:
         idx = 0
         for player,stillin,bet in zip(self.players,self.stillIn,self.curBets):
             if stillin:
-                self.profit[player.id_number] = sum(self.curBets) - self.curBets[idx]
+                self.profit[player.id_number] += sum(self.curBets) - self.curBets[idx]
             else:
                 self.profit[player.id_number] -= self.curBets[idx]
             idx += 1
