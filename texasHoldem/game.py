@@ -1,3 +1,4 @@
+from DPIP.texasHoldem import cards
 import random as rd
 
 
@@ -5,7 +6,7 @@ class Game:
     def __init__(self,players):
         self.players = players[:]
         self.playersOrig = players[:]
-        self.Deck = Deck()
+        self.Deck = cards.Deck()
         self.profit = {x.id_number:0 for x in players}
         self.__cleanup__()
     def __cleanup__(self):
