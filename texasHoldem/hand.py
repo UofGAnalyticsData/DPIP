@@ -131,6 +131,9 @@ class Hand:
         return other.__quality__ == self.__quality__
 
 
+class WrongNumberOfCards(Exception):
+    pass
+    
         
 
 def findBestHands(community_cards,players):
@@ -142,7 +145,11 @@ def findBestHands(community_cards,players):
     bestHands = []
     count = 0
     for player in players:
-        listOfCards = community_cards + player.getCards()
+        player_cards = player.getCards()
+        if len(player_cards) != 2: 
+            print(f'Your player appears to have {len(player_cards)} cards, this is not the expected number, perhaps look at the reset implementation')
+            raise WrongNumberOfCards
+        listOfCards = community_cards + 
         temp1 = [Hand(item) for item in it.combinations(listOfCards,5)]
         count += len(temp1)
 
