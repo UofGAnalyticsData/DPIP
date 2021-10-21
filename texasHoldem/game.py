@@ -36,10 +36,10 @@ class Game:
         curMax = max(self.curBets)
         noRaise = True
         roundCount = 0
-        while noRaise and roundCount<7:
+        while Raised and roundCount<7:
             roundCount += 1
 
-            noRaise = False
+            Raised = False 
             for idx,player in enumerate(self.players):
                 if self.stillIn[idx] == False:
                     continue
@@ -53,8 +53,8 @@ class Game:
                         # If this is the final round then just set the bet to min bet  
                         bet = minBetToStay 
 
-                    if minBetToStay == bet:
-                        noRaise = False
+                    if minBetToStay < bet:
+                        Raised = True 
 
                     self.curBets[idx] += bet
                     curMax = self.curBets[idx]
