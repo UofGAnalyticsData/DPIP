@@ -15,6 +15,7 @@ class Game:
         return {id2player[x]:y for x,y in self.profit}
         
     def getProfitByName(self):
+        id2name = {}
         for x in self.players:
             if hasattr(x,'name'):
                 id2name[x.id_number] = x.name 
