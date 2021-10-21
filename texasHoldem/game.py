@@ -12,7 +12,7 @@ class Game:
         self.__cleanup__()
     def getProfitByPlayer(self):
         id2player = {x.id_number:x for x in self.players}
-        return {id2player[x]:y for x,y in self.profit}
+        return {id2player[x]:y for x,y in self.profit.items()}
         
     def getProfitByName(self):
         id2name = {}
@@ -21,7 +21,7 @@ class Game:
                 id2name[x.id_number] = x.name 
             else:
                 id2name[x.id_number] = x.id_number 
-        return {id2name[x]:y for x,y in self.profit}
+        return {id2name[x]:y for x,y in self.profit.items()}
         
     def __cleanup__(self):
         self.communityCards = []
