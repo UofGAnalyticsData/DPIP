@@ -34,7 +34,7 @@ class Game:
     def runBettingRound(self):
         curComCards = tuple(self.communityCards)
         curMax = max(self.curBets)
-        noRaise = True
+        Raised = True
         roundCount = 0
         while Raised and roundCount<7:
             roundCount += 1
