@@ -1,37 +1,53 @@
 import itertools as it
 from collections import Counter
 
+
 class Hand:
-    def __init__(self,cards):
+    def __init__(self, cards):
+        """
+        """
         self.cards = cards[:]
         self.__quality__ = None
-        self.card2rank = {'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':8,'9':9,'10':10,'Jack':11,'Queen':12,'King':13,'Ace':14}
+        self.card2rank = {
+            '2': 2,
+            '3': 3,
+            '4': 4,
+            '5': 5,
+            '6': 6,
+            '7': 7,
+            '8': 8,
+            '9': 9,
+            '10': 10,
+            'Jack': 11,
+            'Queen': 12,
+            'King': 13,
+            'Ace': 14}
 
     def setQuality(self):
         """
-        This method finds and sets the quality of the hand
-        Quality is measured as follows:
-        8 Straight Flush
-        7 Four of a kind
-        6 Full House
-        5 Flush
-        4 Straight
-        3 Three of a kind
-        2 Two pair
-        1 Pair
-        0 High card
+            This method finds and sets the quality of the hand
+            Quality is measured as follows:
+            8 Straight Flush
+            7 Four of a kind
+            6 Full House
+            5 Flush
+            4 Straight
+            3 Three of a kind
+            2 Two pair
+            1 Pair
+            0 High card
         """
-        if self.__quality__!=None:
+        if self.__quality__ is not None:
             return
 
         # Get suit distribution
         suits = set(x.getSuit() for x in self.cards)
-        
-        if len(suits)==1:
+
+        if len(suits) == 1:
             flush = True
         else:
             flush = False
-        
+
         # Get number distribution
         numbersC = Counter(x.getNumber() for x in self.cards)
         numbers = numbersC.most_common()
@@ -40,12 +56,12 @@ class Hand:
         straightLowest = False
         if numbers[0][-1] == 4:
             # Four of a kind
-            numberState = 5 
+            numberState = 5
         elif numbers[0][-1] == 3 and numbers[1][-1] == 2:
             # Full House
             numberState = 4
         elif numbers[0][-1] == 3:
-            # Three of a kind 
+            # Three of a kind
             numberState = 3
         elif numbers[0][-1] == 2 and numbers[1][-1] == 2:
             # Two pair
@@ -58,106 +74,94 @@ class Hand:
             # Could be a straight
             tempRang = [self.card2rank[x] for x in numbersC]
             diff = max(tempRang) - min(tempRang)
-            if diff==4:
+            if diff == 4:
                 straight = True
             else:
                 tempRang.sort()
-                if tempRang == [2,3,4,5,14]:
+                if tempRang == [2, 3, 4, 5, 14]:
                     straight = True
                     straightLowest = True
-        # lets walk down the cats
+        # Lets walk down the cats
         numbersQual = [self.card2rank[x.getNumber()] for x in self.cards]
         numbersQual.sort(reverse=True)
         if flush and straight:
             if straightLowest:
-                quality = [8,0,0] + numbersQual
-
+                quality = [8, 0, 0] + numbersQual
             else:
-                quality = [8,numbersQual[0],0] + numbersQual
+                quality = [8, numbersQual[0], 0] + numbersQual
         elif numberState == 5:
-            quality = [7,self.card2rank[numbers[0][0]],0] + numbersQual
+            quality = [7, self.card2rank[numbers[0][0]], 0] + numbersQual
         elif numberState == 4:
-            quality = [6,self.card2rank[numbers[0][0]],self.card2rank[numbers[1][0]]] + numbersQual
+            quality = [6, self.card2rank[numbers[0][0]],
+                       self.card2rank[numbers[1][0]]] + numbersQual
         elif flush:
-            quality = [5,0,0] + numbersQual
+            quality = [5, 0, 0] + numbersQual
         elif straight:
             if straightLowest:
-                quality = [4,0,0] + numbersQual
-
+                quality = [4, 0, 0] + numbersQual
             else:
-                quality = [4,numbersQual[0],0] + numbersQual
+                quality = [4, numbersQual[0], 0] + numbersQual
         elif numberState == 3:
-            quality = [3,self.card2rank[numbers[0][0]],0] + numbersQual
+            quality = [3, self.card2rank[numbers[0][0]], 0] + numbersQual
         elif numberState == 2:
-            quality = [2,self.card2rank[numbers[0][0]],self.card2rank[numbers[1][0]]] + numbersQual
+            quality = [2, self.card2rank[numbers[0][0]],
+                       self.card2rank[numbers[1][0]]] + numbersQual
         elif numberState == 1:
-            quality = [1,self.card2rank[numbers[0][0]],0] + numbersQual
+            quality = [1, self.card2rank[numbers[0][0]], 0] + numbersQual
         else:
-            quality = [0,0,0] + numbersQual
+            quality = [0, 0, 0] + numbersQual
         self.__quality__ = quality
 
-
-
-
-            
-
-
-
-
-        
-        
-    def __setupQuality__(self,other):
+    def __setupQuality__(self, other):
         """
-        Wrapper around setting up the quality 
+        Wrapper around setting up the quality
         for each hand
         """
-        if not hasattr(other,'setQuality'):
+        if not hasattr(other, 'setQuality'):
             assert False
             return NotImplemented
-        
+
         # Set quality
-                # If quality already set dont set again.
-        if other.__quality__==None:
+            # If quality already set dont set again.
+        if other.__quality__ is None:
             other.setQuality()
-        if self.__quality__==None:
+        if self.__quality__ is None:
             self.setQuality()
-        
-    def __lt__(self,other):
+
+    def __lt__(self, other):
         self.__setupQuality__(other)
         return other.__quality__ > self.__quality__
 
-    def __eq__(self,other):
-        self.__setupQuality__(other)        
+    def __eq__(self, other):
+        self.__setupQuality__(other)
         return other.__quality__ == self.__quality__
 
 
 class WrongNumberOfCards(Exception):
     pass
-    
-        
 
-def findBestHands(community_cards,players):
+
+def findBestHands(community_cards, players):
     """
-    This function find who has the best hand, using the object orientated 
-    Note that this function is could be made substansially more efficient
-    this is mostly a demonstration of object orientated programming rather th
+        This function find who has the best hand, using the object orientated
+        Note that this function is could be made substantially more efficient
+        this is mostly a demonstration of object orientated programming rather
+        than
     """
     bestHands = []
     count = 0
     for player in players:
         player_cards = player.getCards()
-        if len(player_cards) != 2: 
-            print(f'Your player appears to have {len(player_cards)} cards, this is not the expected number, perhaps look at the reset implementation')
+        if len(player_cards) != 2:
+            print('Player has too many cards - look at the reset function')
             raise WrongNumberOfCards
-        listOfCards = community_cards + player_cards 
-        temp1 = [Hand(item) for item in it.combinations(listOfCards,5)]
+        listOfCards = community_cards + player_cards
+        temp1 = [Hand(item) for item in it.combinations(listOfCards, 5)]
         count += len(temp1)
 
         bestHand = max(temp1)
-        bestHands.append([bestHand,player])
-    overallBest = max(bestHands,key=lambda x:x[0])[0]
-    temp1 = [y for x,y in bestHands if x==overallBest]
+        bestHands.append([bestHand, player])
+    overallBest = max(bestHands, key=lambda x: x[0])[0]
+    temp1 = [y for x, y in bestHands if x == overallBest]
 
     return temp1
-    
-        
