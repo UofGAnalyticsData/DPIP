@@ -306,7 +306,7 @@ class Game:
             self.runEarlyEndGame()
             return
 
-        self.runEndGame()
+        self.runEndGame(run_display)
 
     def runGame(self, num, display=False):
         """
