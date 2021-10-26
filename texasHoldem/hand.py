@@ -154,7 +154,7 @@ class Hand:
         res = 'Hand: '
         res += idx2name[self.__quality__[0]]
         res += ' using '
-        res += ', '.join(str(x) for x in self.cards)
+        res += ', '.join(str(x) for x in sorted(self.cards))
         return res
 
     def __repr__(self):
