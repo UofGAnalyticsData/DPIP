@@ -186,9 +186,18 @@ class Game:
             between the individuals
         """
         print(title)
-        for player,bet in zip(self.players,self.curBets):
-            print(player.getName(), end=": ")
-            print(bets)
+        out = []
+        for player,bet,stillin in zip(self.players,self.curBets,self.stillIn):
+            if stillin:
+                print(player.getName(), end=": ")
+                print(bet)
+            else:
+                out.append([player,bet])
+        if len(out)>0:
+            print('\nOut:')
+            for player,bet in out:
+                print(player.getName(), end=": ")
+                print(bet)
 
     def __printWinners__(self):
         """
