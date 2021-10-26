@@ -162,8 +162,8 @@ class Game:
         # Mark non winners as out
         winners = set([x[1].id_number for x in result])
         for idx, player in enumerate(self.players):
-             if player.id_number not in winners:
-                 self.stillIn[idx] = False
+            if player.id_number not in winners:
+                self.stillIn[idx] = False
 
         if run_display:
             self.__printWinnersEndGame__(result)
@@ -180,22 +180,23 @@ class Game:
         # run cleanup
         self.__cleanup__()
 
-    def __printBetting__(self,title):
+    def __printBetting__(self, title):
         """
             Print the current state of betting
             between the individuals
         """
         print(title)
         out = []
-        for player,bet,stillin in zip(self.players,self.curBets,self.stillIn):
+        for player, bet, stillin in zip(
+                self.players, self.curBets, self.stillIn):
             if stillin:
                 print(player.getName(), end=": ")
                 print(bet)
             else:
-                out.append([player,bet])
-        if len(out)>0:
+                out.append([player, bet])
+        if len(out) > 0:
             print('\nOut:')
-            for player,bet in out:
+            for player, bet in out:
                 print(player.getName(), end=": ")
                 print(bet)
         print('')
@@ -204,16 +205,21 @@ class Game:
         """
             Print who won
         """
-        whoWon = [x.getName() for x,y in zip(self.players,self.stillIn) if y]
-        print('Game Finished as',whoWon," won")
+        whoWon = [x.getName() for x, y in zip(self.players, self.stillIn) if y]
+        assert len(whoWon) == 1
+        whoWon = whoWon[0]
+        print('Game Finished as', whoWon, " won with ",
+              ' '.join(str(x) for x in whoWon.getCards()))
 
-    def __printWinnersEndGame__(self,result):
-
+    def __printWinnersEndGame__(self, result):
         """
             Print who won in end game
         """
-        print('Game Finished. The following players won:\n')
-        print('\n\n'.join(str(y.getName()) +'\n'+str(x) for x,y in result))
+        if len(result) > 1:
+            print('Game Finished. The following players won:\n')
+        else:
+            print('Game Finished. The following player won:\n')
+        print('\n\n'.join(str(y.getName()) + '\n'+str(x) for x, y in result))
 
     def runHand(self, run_display=False):
         """
@@ -249,14 +255,13 @@ class Game:
         # No Small/Big Blind
         self.runBettingRound()
 
-
         if run_display:
             # Print Draw
             print('Draw:\n')
             for player in self.players:
                 print(player.getName(), end=": ")
                 for card in player.getCards():
-                    print(card, end =", ")
+                    print(card, end=", ")
                 print('\n')
 
             # Print the betting results
@@ -274,7 +279,7 @@ class Game:
         for _ in range(3):
             self.communityCards.append(self.Deck.drawCard())
         if run_display:
-            print('Flop: ',self.communityCards)
+            print('Flop: ', self.communityCards)
 
         # Run flop betting round
         self.runBettingRound()
@@ -292,7 +297,7 @@ class Game:
         self.Deck.burnCard()
         self.communityCards.append(self.Deck.drawCard())
         if run_display:
-            print('Turn: ',self.communityCards)
+            print('Turn: ', self.communityCards)
 
         # Run Turn betting round
         self.runBettingRound()
@@ -310,7 +315,7 @@ class Game:
         self.Deck.burnCard()
         self.communityCards.append(self.Deck.drawCard())
         if run_display:
-            print('River: ',self.communityCards)
+            print('River: ', self.communityCards)
 
         # Run River betting round
         self.runBettingRound()
