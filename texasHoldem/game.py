@@ -205,10 +205,10 @@ class Game:
         """
             Print who won
         """
-        whoWon = [x.getName() for x, y in zip(self.players, self.stillIn) if y]
+        whoWon = [x for x, y in zip(self.players, self.stillIn) if y]
         assert len(whoWon) == 1
         whoWon = whoWon[0]
-        print('Game Finished as', whoWon, " won with ",
+        print('Game Finished as', whoWon.getName(), " won with ",
               ' '.join(str(x) for x in whoWon.getCards()))
 
     def __printWinnersEndGame__(self, result):
