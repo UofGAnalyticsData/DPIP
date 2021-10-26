@@ -159,8 +159,14 @@ class Game:
         # Find the best hand/results
         result = hand.findBestHands(self.communityCards, players)
 
-        import pdb
-        pdb.set_trace()
+        # Mark non winners as out
+        winners = set([x.id_number for x in result])
+        for idx, player in enumerate(self.players):
+             if player.id_number not in winners:
+                 self.stillIn[idx] = False
+
+        if run_display:
+            self.__printWinners__()
 
         # Remove bets
         for player, bet in zip(self.players, self.curBets):
@@ -300,8 +306,6 @@ class Game:
             self.runEarlyEndGame()
             return
 
-        if run_display:
-            self.__printWinners__()
         self.runEndGame()
 
     def runGame(self, num, display=False):
