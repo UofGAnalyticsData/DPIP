@@ -197,6 +197,6 @@ def findBestHands(community_cards, players):
         bestHand = max(temp1)
         bestHands.append([bestHand, player])
     overallBest = max(bestHands, key=lambda x: x[0])[0]
-    temp1 = [(x, y) for x, y in bestHands if x == overallBest]
+    result = [(x, y) for x, y in bestHands if x == overallBest]
 
     return result
