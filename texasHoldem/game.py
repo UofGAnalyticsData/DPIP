@@ -186,9 +186,9 @@ class Game:
             between the individuals
         """
         print(title)
-        for player in self.players:
+        for player,bet in zip(self.players,self.curBets):
             print(player.getName(), end=": ")
-            print(self.curBets[player.id_number])
+            print(bets)
 
     def __printWinners__(self):
         """
@@ -308,10 +308,10 @@ class Game:
 
         self.runEndGame(run_display)
 
-    def runGame(self, num, display=False):
+    def runGame(self, num, run_display=False):
         """
             Run a game i.e. a fixed number of hands
         """
         for idx in range(num):
-            self.runHand(display)
+            self.runHand(run_display)
         return
