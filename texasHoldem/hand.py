@@ -187,26 +187,16 @@ def findBestHands(community_cards, players):
         than
     """
     bestHands = []
-    count = 0
     for player in players:
         player_cards = player.getCards()
         if len(player_cards) != 2:
             print('Player has too many cards - look at the reset function')
             raise WrongNumberOfCards
         listOfCards = community_cards + player_cards
-        temp1 = [Hand(item) for item in it.combinations(listOfCards, 5)]
-        count += len(temp1)
-
+        temp1 = (Hand(item) for item in it.combinations(listOfCards, 5))
         bestHand = max(temp1)
         bestHands.append([bestHand, player])
     overallBest = max(bestHands, key=lambda x: x[0])[0]
     temp1 = [(x, y) for x, y in bestHands if x == overallBest]
 
-    # Control for multiple top hands
-    seen = set()
-    result = []
-    for item in temp1:
-        if item[1].id_number not in seen:
-            seen.add(item[1].id_number)
-            result.append(item)
     return result
