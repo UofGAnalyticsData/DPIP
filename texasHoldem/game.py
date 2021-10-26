@@ -166,7 +166,7 @@ class Game:
                  self.stillIn[idx] = False
 
         if run_display:
-            self.__printWinners__(result)
+            self.__printWinnersEndGame__(result)
 
         # Remove bets
         for player, bet in zip(self.players, self.curBets):
