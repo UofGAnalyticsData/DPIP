@@ -136,6 +136,30 @@ class Hand:
         self.__setupQuality__(other)
         return other.__quality__ == self.__quality__
 
+    def __str__(self):
+        """
+            Create a simple string summerising the hand
+        """
+        idx2name = {}
+        idx2name[8] = 'Straight Flush'
+        idx2name[7] = 'Four of a kind'
+        idx2name[6] = 'Full House'
+        idx2name[5] = 'Flush'
+        idx2name[4] = 'Straight'
+        idx2name[3] = 'Three of a kind'
+        idx2name[2] = 'Two pair'
+        idx2name[1] = 'Pair'
+        idx2name[0] = 'High card'
+        self.setQuality()
+        res = 'Hand: '
+        res += idx2name[self.__quality__[0]]
+        res += ' using '
+        res += ', '.join(str(x) for x in self.cards)
+        return res
+
+    def __repr__(self):
+        return self.__str__()
+
 
 class WrongNumberOfCards(Exception):
     pass
@@ -162,6 +186,13 @@ def findBestHands(community_cards, players):
         bestHand = max(temp1)
         bestHands.append([bestHand, player])
     overallBest = max(bestHands, key=lambda x: x[0])[0]
-    temp1 = [y for x, y in bestHands if x == overallBest]
+    temp1 = [(x, y) for x, y in bestHands if x == overallBest]
 
-    return temp1
+    # Control for multiple top hands
+    seen = set()
+    result = []
+    for item in temp1:
+        if item[1].id_number not in seen:
+            seen.add(item[1].id_number)
+            result.append(item)
+    return result

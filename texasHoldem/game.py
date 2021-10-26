@@ -160,7 +160,7 @@ class Game:
         result = hand.findBestHands(self.communityCards, players)
 
         # Mark non winners as out
-        winners = set([x.id_number for x in result])
+        winners = set([x[1].id_number for x in result])
         for idx, player in enumerate(self.players):
              if player.id_number not in winners:
                  self.stillIn[idx] = False
@@ -175,7 +175,7 @@ class Game:
         # Add profits divided by number of winners
         toAdd = sum(self.curBets)/len(result)
         for item in result:
-            self.profit[item.id_number] += toAdd
+            self.profit[item[1].id_number] += toAdd
 
         # run cleanup
         self.__cleanup__()
@@ -198,6 +198,7 @@ class Game:
             for player,bet in out:
                 print(player.getName(), end=": ")
                 print(bet)
+        print('')
 
     def __printWinners__(self):
         """
@@ -205,6 +206,13 @@ class Game:
         """
         whoWon = [x.getName() for x,y in zip(self.players,self.stillIn) if y]
         print('Game Finished as',whoWon," won")
+    def __printWinners__(self,result):
+
+        """
+            Print who won in end game
+        """
+        print('Game Finished. The following players won:')
+        print('\n'.join(str(y) +'with hand: '+str(x) for x,y in result))
 
     def runHand(self, run_display=False):
         """
