@@ -38,7 +38,7 @@ class playerBase:
         """
         self.cards = []
     def getName(self):
-        if hasattr(self.name):
+        if hasattr(self,'name'):
             return self.name
         else:
             return 'Player Id:' + str(self.id_number)
