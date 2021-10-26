@@ -185,7 +185,7 @@ class Game:
         """
             Print who won
         """
-        whoWon = [x.getName() for x,y in zip(self.player,self.stillIn) if y]
+        whoWon = [x.getName() for x,y in zip(self.players,self.stillIn) if y]
         print('Game Finished as',whoWon," won")
 
     def runHand(self, run_display=False):

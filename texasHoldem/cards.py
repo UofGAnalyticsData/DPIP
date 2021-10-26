@@ -67,6 +67,11 @@ class Card:
         Simple string implementation
         """
         return f"{self.number} of {self.suit}"
+    def __repr__(self):
+        """
+        Simple string implementation
+        """
+        return self.__str__()
 
 
 class Deck:
