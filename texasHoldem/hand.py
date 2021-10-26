@@ -57,25 +57,25 @@ class Hand:
         numbersC = [0,]*15
         for x in numbersIdx:
             numbersC[x] += 1
-        numbers = [(x,y) for x,y in zip(range(15), numbersC) if y>0]
-        numbers.sort(key=lambda x:x[1], reverse=True)
+        numbers = [(y,x) for x,y in zip(range(15), numbersC) if y>0]
+        numbers.sort(reverse=True)
 
         straight = False
         straightLowest = False
         if numbers[0][-1]>2:
-            if numbers[0][-1] == 4:
+            if numbers[0][0] == 4:
                 # Four of a kind
                 numberState = 5
             else:
-                if numbers[1][-1] == 2:
+                if numbers[1][0] == 2:
                     # Full House
                     numberState = 4
                 else:
                     # Three of a kind
                     numberState = 3
         else:
-            if numbers[0][-1] == 2:
-                if numbers[1][-1] == 2:
+            if numbers[0][0] == 2:
+                if numbers[1][0] == 2:
                     # Two pair
                     numberState = 2
                 else:
@@ -106,9 +106,9 @@ class Hand:
             else:
                 quality = [8, numbersIdx[0], 0] + numbersIdx
         elif numberState == 5:
-            quality = [7, numbers[0][0], 0] + numbersIdx
+            quality = [7, numbers[0][1], 0] + numbersIdx
         elif numberState == 4:
-            quality = [6, numbers[0][0], numbers[1][0]] + numbersIdx
+            quality = [6, numbers[0][1], numbers[1][1]] + numbersIdx
         elif flush:
             quality = [5, 0, 0] + numbersIdx
         elif straight:
@@ -117,11 +117,11 @@ class Hand:
             else:
                 quality = [4, numbersIdx[0], 0] + numbersIdx
         elif numberState == 3:
-            quality = [3, numbers[0][0], 0] + numbersIdx
+            quality = [3, numbers[0][1], 0] + numbersIdx
         elif numberState == 2:
-            quality = [2, numbers[0][0], numbers[1][0]] + numbersIdx
+            quality = [2, numbers[0][1], numbers[1][1]] + numbersIdx
         elif numberState == 1:
-            quality = [1, numbers[0][0], 0] + numbersIdx
+            quality = [1, numbers[0][1], 0] + numbersIdx
         else:
             quality = [0, 0, 0] + numbersIdx
         self.__quality__ = quality
