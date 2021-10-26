@@ -166,7 +166,7 @@ class Game:
                  self.stillIn[idx] = False
 
         if run_display:
-            self.__printWinners__()
+            self.__printWinners__(result)
 
         # Remove bets
         for player, bet in zip(self.players, self.curBets):
@@ -206,7 +206,8 @@ class Game:
         """
         whoWon = [x.getName() for x,y in zip(self.players,self.stillIn) if y]
         print('Game Finished as',whoWon," won")
-    def __printWinners__(self,result):
+
+    def __printWinnersEndGame__(self,result):
 
         """
             Print who won in end game
