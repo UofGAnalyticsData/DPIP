@@ -177,7 +177,7 @@ class Game:
             between the individuals
         """
         print(title)
-        for player in zip(self.players,self.curBets):
+        for player in self.players:
             print(player.getName(), end=": ")
             print(self.curBets[player.id_number])
 
