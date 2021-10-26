@@ -57,8 +57,8 @@ class Hand:
         numbersC = [0,]*15
         for x in numbersIdx:
             numbersC[x] += 1
-        numbers = sorted(zip(range(15), numbersC), key=lambda x:x[1],
-                         reverse=True)
+        numbers = [(x,y) for x,y in zip(range(15), numbersC) if y>0]
+        numbers.sort(key=lambda x:x[1], reverse=True)
 
         straight = False
         straightLowest = False
