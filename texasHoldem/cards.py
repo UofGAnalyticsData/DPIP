@@ -73,6 +73,11 @@ class Card:
         """
         return self.__str__()
 
+    def __lt__(self,x):
+        """
+        Simple card ordering
+        """
+        return self.getNumberIdx() < x.getNumberIdx()
 
 class Deck:
     """
@@ -133,3 +138,4 @@ class Deck:
             Deal - draw a card and return it
         """
         return self.curDeck.pop()
+
