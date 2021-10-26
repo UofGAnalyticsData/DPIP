@@ -212,7 +212,7 @@ class Game:
         """
             Print who won in end game
         """
-        print('Game Finished. The following players won:')
+        print('Game Finished. The following players won:\n')
         print('\n\n'.join(str(y.getName()) +'\n'+str(x) for x,y in result))
 
     def runHand(self, run_display=False):
