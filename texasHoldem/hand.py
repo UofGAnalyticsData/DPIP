@@ -89,6 +89,11 @@ class Hand:
                     straightLowest = True
 
         # Lets walk down the cats to construct a hand quality vector
+        # Structure of the vector is as follows:
+        # 0th: hand id from list above
+        # 1st: Quality measure of hand (i.e. card of pair)
+        # 2nd: Quality measure of hand (i.e. second card of 2 pair)
+        # 3-8: Other cards in order
 
         # Make a simple list of the card (for high card comparisons)
         if flush and straight:
@@ -97,10 +102,9 @@ class Hand:
             else:
                 quality = [8, numbersIdx[0], 0] + numbersIdx
         elif numberState == 5:
-            quality = [7, self.card2rank[numbers[0][0]], 0] + numbersIdx
+            quality = [7, numbers[0][0], 0] + numbersIdx
         elif numberState == 4:
-            quality = [6, self.card2rank[numbers[0][0]],
-                       self.card2rank[numbers[1][0]]] + numbersIdx
+            quality = [6, numbers[0][0], numbers[1][0]] + numbersIdx
         elif flush:
             quality = [5, 0, 0] + numbersIdx
         elif straight:
@@ -109,12 +113,11 @@ class Hand:
             else:
                 quality = [4, numbersIdx[0], 0] + numbersIdx
         elif numberState == 3:
-            quality = [3, self.card2rank[numbers[0][0]], 0] + numbersIdx
+            quality = [3, numbers[0][0], 0] + numbersIdx
         elif numberState == 2:
-            quality = [2, self.card2rank[numbers[0][0]],
-                       self.card2rank[numbers[1][0]]] + numbersIdx
+            quality = [2, numbers[0][0], numbers[1][0]] + numbersIdx
         elif numberState == 1:
-            quality = [1, self.card2rank[numbers[0][0]], 0] + numbersIdx
+            quality = [1, numbers[0][0], 0] + numbersIdx
         else:
             quality = [0, 0, 0] + numbersIdx
         self.__quality__ = quality
