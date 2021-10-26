@@ -147,7 +147,7 @@ class Game:
         # run cleanup
         self.__cleanup__()
 
-    def runEndGame(self):
+    def runEndGame(self, run_display=False):
         """
             Run the end game (cleaning up betting etc) for
             games where at least two players are still in,
@@ -158,6 +158,9 @@ class Game:
 
         # Find the best hand/results
         result = hand.findBestHands(self.communityCards, players)
+
+        import pdb
+        pdb.set_trace()
 
         # Remove bets
         for player, bet in zip(self.players, self.curBets):
