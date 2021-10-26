@@ -26,7 +26,9 @@ class Hand:
     def setQuality(self):
         """
             This method finds and sets the quality of the hand
+
             Quality is measured as follows:
+
             8 Straight Flush
             7 Four of a kind
             6 Full House
@@ -40,17 +42,23 @@ class Hand:
         if self.__quality__ is not None:
             return
 
-        # Get suit distribution
-        suits = set(x.getSuit() for x in self.cards)
-
-        if len(suits) == 1:
-            flush = True
-        else:
-            flush = False
+        # Is this a flush 
+        curSuit = self.cards[0]
+        flush = True
+        for card in self.cards:
+            if curSuit != card.getSuit():
+                flush = False
+                break
 
         # Get number distribution
-        numbersC = Counter(x.getNumber() for x in self.cards)
-        numbers = numbersC.most_common()
+        numbersIdx = [x.getNumberIdx() for x in self.cards]
+        numbersIdx.sort(reverse=True)
+        # count numbers for pairs/three of a kind etc
+        numbersC = [0,]*15
+        for x in numbersIdx:
+            numbersC[x] += 1
+        numbers = sorted(zip(range(15), numbersC), key=lambda x:x[1],
+                         reverse=True)
 
         straight = False
         straightLowest = False
@@ -72,44 +80,43 @@ class Hand:
         else:
             numberState = 0
             # Could be a straight
-            tempRang = [self.card2rank[x] for x in numbersC]
-            diff = max(tempRang) - min(tempRang)
+            diff = numbersIdx[0] - numbersIdx[-1]
             if diff == 4:
                 straight = True
             else:
-                tempRang.sort()
-                if tempRang == [2, 3, 4, 5, 14]:
+                if numbersIdx == [14,5,4,3,2]:
                     straight = True
                     straightLowest = True
-        # Lets walk down the cats
-        numbersQual = [self.card2rank[x.getNumber()] for x in self.cards]
-        numbersQual.sort(reverse=True)
+
+        # Lets walk down the cats to construct a hand quality vector
+
+        # Make a simple list of the card (for high card comparisons)
         if flush and straight:
             if straightLowest:
-                quality = [8, 0, 0] + numbersQual
+                quality = [8, 0, 0] + numbersIdx
             else:
-                quality = [8, numbersQual[0], 0] + numbersQual
+                quality = [8, numbersIdx[0], 0] + numbersIdx
         elif numberState == 5:
-            quality = [7, self.card2rank[numbers[0][0]], 0] + numbersQual
+            quality = [7, self.card2rank[numbers[0][0]], 0] + numbersIdx
         elif numberState == 4:
             quality = [6, self.card2rank[numbers[0][0]],
-                       self.card2rank[numbers[1][0]]] + numbersQual
+                       self.card2rank[numbers[1][0]]] + numbersIdx
         elif flush:
-            quality = [5, 0, 0] + numbersQual
+            quality = [5, 0, 0] + numbersIdx
         elif straight:
             if straightLowest:
-                quality = [4, 0, 0] + numbersQual
+                quality = [4, 0, 0] + numbersIdx
             else:
-                quality = [4, numbersQual[0], 0] + numbersQual
+                quality = [4, numbersIdx[0], 0] + numbersIdx
         elif numberState == 3:
-            quality = [3, self.card2rank[numbers[0][0]], 0] + numbersQual
+            quality = [3, self.card2rank[numbers[0][0]], 0] + numbersIdx
         elif numberState == 2:
             quality = [2, self.card2rank[numbers[0][0]],
-                       self.card2rank[numbers[1][0]]] + numbersQual
+                       self.card2rank[numbers[1][0]]] + numbersIdx
         elif numberState == 1:
-            quality = [1, self.card2rank[numbers[0][0]], 0] + numbersQual
+            quality = [1, self.card2rank[numbers[0][0]], 0] + numbersIdx
         else:
-            quality = [0, 0, 0] + numbersQual
+            quality = [0, 0, 0] + numbersIdx
         self.__quality__ = quality
 
     def __setupQuality__(self, other):
