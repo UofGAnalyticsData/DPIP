@@ -62,31 +62,35 @@ class Hand:
 
         straight = False
         straightLowest = False
-        if numbers[0][-1] == 4:
-            # Four of a kind
-            numberState = 5
-        elif numbers[0][-1] == 3 and numbers[1][-1] == 2:
-            # Full House
-            numberState = 4
-        elif numbers[0][-1] == 3:
-            # Three of a kind
-            numberState = 3
-        elif numbers[0][-1] == 2 and numbers[1][-1] == 2:
-            # Two pair
-            numberState = 2
-        elif numbers[0][-1] == 2:
-            # One pair
-            numberState = 1
-        else:
-            numberState = 0
-            # Could be a straight
-            diff = numbersIdx[0] - numbersIdx[-1]
-            if diff == 4:
-                straight = True
+        if numbers[0][-1]>2:
+            if numbers[0][-1] == 4:
+                # Four of a kind
+                numberState = 5
             else:
-                if numbersIdx == [14,5,4,3,2]:
+                if numbers[1][-1] == 2:
+                    # Full House
+                    numberState = 4
+                else:
+                    # Three of a kind
+                    numberState = 3
+        else:
+            if numbers[0][-1] == 2:
+                if numbers[1][-1] == 2:
+                    # Two pair
+                    numberState = 2
+                else:
+                    # One pair
+                    numberState = 1
+            else:
+                numberState = 0
+                # Could be a straight
+                diff = numbersIdx[0] - numbersIdx[-1]
+                if diff == 4:
                     straight = True
-                    straightLowest = True
+                else:
+                    if numbersIdx == [14,5,4,3,2]:
+                        straight = True
+                        straightLowest = True
 
         # Lets walk down the cats to construct a hand quality vector
         # Structure of the vector is as follows:
