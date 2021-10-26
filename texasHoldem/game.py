@@ -171,6 +171,23 @@ class Game:
         # run cleanup
         self.__cleanup__()
 
+    def __printBetting__(self,title):
+        """
+            Print the current state of betting
+            between the individuals
+        """
+        print(title)
+        for player in zip(self.players,self.curBets):
+            print(player.getName(), end=": ")
+            print(self.curBets[player.id_number])
+
+    def __printWinners__(self):
+        """
+            Print who won
+        """
+        whoWon = [x.getName() for x,y in zip(self.player,self.stillIn) if y]
+        print('Game Finished as',whoWon," won")
+
     def runHand(self, run_display=False):
         """
             Run a single hand of poker
@@ -189,6 +206,9 @@ class Game:
         # Reset the deck
         self.Deck.resetDeck()
 
+        if run_display:
+            print('Starting a hand:\n')
+
         # Deal cards
 
         # First card
@@ -202,8 +222,23 @@ class Game:
         # No Small/Big Blind
         self.runBettingRound()
 
+
+        if run_display:
+            # Print Draw
+            print('Draw:\n')
+            for player in self.players:
+                print(player.getName(), end=": ")
+                for card in player.getCards():
+                    print(card, end =", ")
+                print('\n')
+
+            # Print the betting results
+            self.__printBetting__("Initial Betting")
+
         # Leave Game if only 1 player in
         if sum(1 for x in self.stillIn if x) == 1:
+            if run_display:
+                self.__printWinners__()
             self.runEarlyEndGame()
             return
 
@@ -211,45 +246,65 @@ class Game:
         self.Deck.burnCard()
         for _ in range(3):
             self.communityCards.append(self.Deck.drawCard())
+        if run_display:
+            print('Flop: ',self.communityCards)
 
         # Run flop betting round
         self.runBettingRound()
+        if run_display:
+            self.__printBetting__("Flop Betting")
 
         # Leave Game if only 1 player in
         if sum(1 for x in self.stillIn if x) == 1:
+            if run_display:
+                self.__printWinners__()
             self.runEarlyEndGame()
             return
 
         # Deal 1 card (the turn)
         self.Deck.burnCard()
         self.communityCards.append(self.Deck.drawCard())
+        if run_display:
+            print('Turn: ',self.communityCards)
 
         # Run Turn betting round
         self.runBettingRound()
+        if run_display:
+            self.__printBetting__("Turn Betting")
 
         # Leave Game if only 1 player in
         if sum(1 for x in self.stillIn if x) == 1:
+            if run_display:
+                self.__printWinners__()
             self.runEarlyEndGame()
             return
 
         # Run River betting round
         self.Deck.burnCard()
         self.communityCards.append(self.Deck.drawCard())
+        if run_display:
+            print('River: ',self.communityCards)
 
         # Run River betting round
         self.runBettingRound()
+        if run_display:
+            self.__printBetting__("River Betting")
 
         # Leave Game if only 1 player in
         if sum(1 for x in self.stillIn if x) == 1:
+            if run_display:
+                self.__printWinners__()
             self.runEarlyEndGame()
             return
 
+        if run_display:
+            self.__printWinners__()
         self.runEndGame()
 
-    def runGame(self, num):
+    def runGame(self, num, display=False):
         """
             Run a game i.e. a fixed number of hands
         """
         for idx in range(num):
-            self.runHand()
+            self.runHand(display)
         return

@@ -37,6 +37,11 @@ class playerBase:
         This method should reset the player for the start of a hand
         """
         self.cards = []
+    def getName(self):
+        if hasattr(self.name):
+            return self.name
+        else:
+            return 'Player Id:' + str(self.id_number)
 
 
 class player_bet1(playerBase):
