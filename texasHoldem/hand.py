@@ -6,6 +6,7 @@ class Hand:
     def __init__(self, cards):
         """
         """
+        assert len(cards) == 5
         self.cards = cards[:]
         self.__quality__ = None
         self.card2rank = {
@@ -43,7 +44,7 @@ class Hand:
             return
 
         # Is this a flush 
-        curSuit = self.cards[0]
+        curSuit = self.cards[0].getSuit()
         flush = True
         for card in self.cards:
             if curSuit != card.getSuit():
@@ -62,7 +63,7 @@ class Hand:
 
         straight = False
         straightLowest = False
-        if numbers[0][-1]>2:
+        if numbers[0][0]>2:
             if numbers[0][0] == 4:
                 # Four of a kind
                 numberState = 5
@@ -177,6 +178,8 @@ class Hand:
 
 class WrongNumberOfCards(Exception):
     pass
+
+
 
 
 def findBestHands(community_cards, players):
