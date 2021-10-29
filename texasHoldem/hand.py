@@ -24,9 +24,26 @@ class Hand:
             'King': 13,
             'Ace': 14}
 
+        self.idx2name = {}
+        self.idx2name[8] = 'Straight Flush'
+        self.idx2name[7] = 'Four of a kind'
+        self.idx2name[6] = 'Full House'
+        self.idx2name[5] = 'Flush'
+        self.idx2name[4] = 'Straight'
+        self.idx2name[3] = 'Three of a kind'
+        self.idx2name[2] = 'Two pair'
+        self.idx2name[1] = 'Pair'
+        self.idx2name[0] = 'High card'
+
     def setQuality(self):
         """
-            This method finds and sets the quality of the hand
+            This method finds and sets the quality list of the hand
+
+            Structure of the list is as follows:
+                0th: Hand type from list above
+                1st: Quality measure of hand (e.g. card of pair)
+                2nd: Quality measure of hand (e.g. second card of 2 pair)
+                3-8: Other cards in order
 
             Quality is measured as follows:
 
@@ -155,19 +172,9 @@ class Hand:
         """
             Create a simple string summerising the hand
         """
-        idx2name = {}
-        idx2name[8] = 'Straight Flush'
-        idx2name[7] = 'Four of a kind'
-        idx2name[6] = 'Full House'
-        idx2name[5] = 'Flush'
-        idx2name[4] = 'Straight'
-        idx2name[3] = 'Three of a kind'
-        idx2name[2] = 'Two pair'
-        idx2name[1] = 'Pair'
-        idx2name[0] = 'High card'
         self.setQuality()
         res = 'Hand: '
-        res += idx2name[self.__quality__[0]]
+        res += self.idx2name[self.__quality__[0]]
         res += ' using '
         res += ', '.join(str(x) for x in sorted(self.cards))
         return res
@@ -175,11 +182,34 @@ class Hand:
     def __repr__(self):
         return self.__str__()
 
+    def getHandType(self):
+        """
+            Returns the name of a hand type as a string
+        """
+        self.setQuality()
+        return self.idx2name[self.__quality__[0]]
+
+    def getHandTypeIdx(self):
+        """
+            Returns the quality of the hand type as an integer
+        """
+        self.setQuality()
+        return self.__quality__[0]
+
 
 class WrongNumberOfCards(Exception):
     pass
 
 
+def findBestHandFromCards(listOfCards):
+    """
+        This function find the best hand from a set of cards
+    """
+    if len(listOfCards)<5:
+        raise WrongNumberOfCards
+    temp1 = (Hand(item) for item in it.combinations(listOfCards, 5))
+    bestHand = max(temp1)
+    return bestHand
 
 
 def findBestHands(community_cards, players):
