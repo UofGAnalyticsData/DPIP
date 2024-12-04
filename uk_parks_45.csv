@@ -1,0 +1,48 @@
+Park Name,Size (hectares),Visitor Numbers (in 000s),Facilities,Nature Reserve,Average Birds per Year,Parking Available,Entry Fee (£)
+Greenfield Park,674,13,"Playground, Cafe",Yes,,Yes,Free
+Riverbank Reserve,134,72,"Nature Trails, Cafe",Yes,274855,No,Free
+Sunnyvale Gardens,45,214,Playground,No,383036,Yes,Free
+Highland Forest,779,130,"Playground, Cafe",Yes,,Yes,£2
+Meadowview,301,132,"Playground, Cafe",Yes,,Yes,Free
+Woodland Retreat,270,433,"Nature Trails, Cafe",Yes,449741,No,Free
+Lakeside Preserve,248,45,"Playground, Cafe",No,160367,Yes,Free
+Hilltop View,162,294,"Nature Trails, Cafe",Yes,,No,£12
+Coastal Gardens,774,35,Nature Trails,No,,Yes,Free
+Eastwood Park,124,290,"Nature Trails, Cafe",No,,Yes,Free
+Riverside Gardens,712,291,Playground,Yes,272550,No,£6
+Mountain View,778,315,Playground,Yes,488482,No,Free
+Forest Glen,933,380,"Nature Trails, Cafe",No,262328,Yes,£11
+Beachfront Park,578,43,Nature Trails,No,56522,No,£8
+Central Park,109,21,Nature Trails,No,78896,No,Free
+Sunset Meadows,624,60,Playground,No,,Yes,Free
+Wildflower Reserve,452,463,Nature Trails,No,,No,Free
+Autumn Woods,52,400,"Playground, Cafe",Yes,,Yes,£7
+Crystal Lake Park,50,66,Cafe,Yes,60741,Yes,£12
+Seaside Gardens,115,21,"Playground, Cafe",Yes,228691,No,Free
+Pinehill Park,243,201,Playground,Yes,,Yes,Free
+Maplewood Retreat,258,21,Nature Trails,No,,Yes,£13
+Silver Springs,537,379,"Nature Trails, Cafe",Yes,,Yes,Free
+Cedarwood Park,636,331,Cafe,Yes,,No,£9
+Rocky Ridge,47,293,"Nature Trails, Cafe",Yes,111158,No,£17
+Blossom Valley,594,203,Playground,Yes,185560,Yes,£18
+Golden Fields,223,202,Nature Trails,Yes,60662,No,Free
+Snowdrop Park,753,493,"Nature Trails, Cafe",Yes,,Yes,Free
+Sunrise Gardens,685,411,"Nature Trails, Cafe",Yes,59971,No,£19
+Cypress Springs,738,451,Cafe,Yes,,No,Free
+Willowbrook Park,578,137,Cafe,Yes,293638,No,£20
+Shady Grove,449,120,Nature Trails,No,59821,Yes,£12
+Lakeview Park,245,120,Cafe,Yes,476348,Yes,Free
+Birchwood Gardens,479,53,"Nature Trails, Cafe",Yes,65924,No,Free
+Falcon Heights,623,120,"Nature Trails, Cafe",No,384005,No,Free
+Parkview Hill,304,121,Playground,No,241694,Yes,Free
+Rosewood Reserve,848,120,"Nature Trails, Cafe",Yes,496766,Yes,Free
+Stonehenge Park,910,134,Nature Trails,Yes,333520,No,£12
+Moonlight Gardens,26,91,"Playground, Cafe",No,354734,Yes,£3
+Foxhill Park,797,56,Playground,Yes,,No,£20
+Hawthorne Grove,845,56,Playground,No,166716,Yes,£4
+Thornwood Forest,183,56,Nature Trails,No,,No,£17
+Wildwood Preserve,734,205,Nature Trails,Yes,,No,£14
+Bluebell Park,452,200,Cafe,Yes,237505,Yes,£13
+Mossy Hollow,368,66,Playground,Yes,,Yes,Free
+Pinecrest Park,304,460,Cafe,No,,Yes,£7
+Sunlit Grove,179,98,"Nature Trails, Cafe",No,424193,Yes,Free
