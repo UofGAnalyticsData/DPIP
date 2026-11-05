@@ -292,7 +292,7 @@
     <key>allowUploads</key>
     <true />
     <key>examKeySalt</key>
-    <data>pdfNmZxCjplOIP0iDL9iMDPYOHdRBhZUXARKFqHEcVw=</data>
+    <data>uBgKDdlLCTRA+nP8dK/AwybVPwLQQKvurNpUzGlCzQM=</data>
     <key>examSessionClearCookiesOnEnd</key>
     <true />
     <key>browserExamKey</key>
@@ -362,7 +362,7 @@
             <key>active</key>
             <true />
             <key>argument</key>
-            <string>True	C:\ProgramData\anaconda3\cwp.py C:\ProgramData\anaconda3 C:\ProgramData\anaconda3\python.exe C:\ProgramData\anaconda3\Scripts\jupyter-notebook-script.py "%USERPROFILE%/" --port 9500 --NotebookApp.token='cd604ecacfa6f59c3bd49bc841efcd9f70376a723870cfd9' --NotebookApp.password=''</string>
+            <string>C:\ProgramData\anaconda3\cwp.py C:\ProgramData\anaconda3 C:\ProgramData\anaconda3\python.exe C:\ProgramData\anaconda3\Scripts\jupyter-notebook-script.py "%USERPROFILE%/" --port 9500 --NotebookApp.token='cd604ecacfa6f59c3bd49bc841efcd9f70376a723870cfd9' --NotebookApp.password=''</string>
           </dict>
         </array>
         <key>signature</key>
